@@ -1,40 +1,64 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+  import { ref } from "vue";
 
-//store
-import { useNuxtApp, useTabStore } from '#imports';
+  //store
+  import { useNuxtApp, useTabStore } from "#imports";
 
-//firebas
-import { signInWithEmailAndPassword } from 'firebase/auth';
+  //firebas
+  import { signInWithEmailAndPassword } from "firebase/auth";
 
-const nuxtApp = useNuxtApp()
-const tabStore = useTabStore()
-const email = ref("")
-const password = ref("")
+  const nuxtApp = useNuxtApp();
+  const tabStore = useTabStore();
+  const email = ref("");
+  const password = ref("");
 
-const signInUser = async (e: Event) => {
-    e.preventDefault()
+  const signInUser = async (e: Event) => {
+    e.preventDefault();
     if (!email.value || !password.value) {
-        return
+      return;
     }
     try {
-        await signInWithEmailAndPassword(nuxtApp.$auth, email.value, password.value)
-        tabStore.currentTab = "DisplayDocs"
+      await signInWithEmailAndPassword(
+        nuxtApp.$auth,
+        email.value,
+        password.value
+      );
+      tabStore.currentTab = "DisplayDocs";
     } catch (error) {
-        console.error(error);
+      console.error(error);
     }
-}
+  };
 </script>
 <template>
-    <form class="max-w-xl mx-auto py-5 flex flex-col gap-3" @submit="signInUser">
-        <h1 class="text-4xl font-extrabold text-center mb-3">Login</h1>
-        <input type="email" name="email" id="email" placeholder="Email" autocomplete="off" required v-model="email">
-        <input type="password" name="password" id="password" placeholder="**********" required v-model="password">
-        <button type="submit" class="bg-slate-500 text-white py-2 px-5 rounded-lg cursor-pointer">Login</button>
-    </form>
+  <form class="max-w-xl mx-auto py-5 flex flex-col gap-3" @submit="signInUser">
+    <h1 class="text-4xl font-extrabold text-center mb-3">Login</h1>
+    <input
+      type="email"
+      name="email"
+      id="email"
+      placeholder="Email"
+      autocomplete="off"
+      required
+      v-model="email"
+    />
+    <input
+      type="password"
+      name="password"
+      id="password"
+      placeholder="**********"
+      required
+      v-model="password"
+    />
+    <button
+      type="submit"
+      class="bg-slate-500 text-white py-2 px-5 rounded-lg cursor-pointer"
+    >
+      Login
+    </button>
+  </form>
 </template>
 <style scoped>
-input {
-    @apply border rounded p-2
-}
+  input {
+    @apply border rounded p-2;
+  }
 </style>
