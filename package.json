@@ -1,7 +1,10 @@
 {
   "name": "nuxt-app",
+  "version": "1.0.0",
+  "description": "Nuxt 3 with firebase starter template",
   "private": true,
   "type": "module",
+  "author": "Po Yi Zhi",
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",
